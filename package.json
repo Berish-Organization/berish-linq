@@ -1,0 +1,12 @@
+{
+  "name": "berish-linq",
+  "version": "1.0.1",
+  "description": "LINQ - very usefull helper for working with arrays and collections",
+  "main": "index.js",
+  "author": {
+    "name": "Berishev Ravil"
+  },
+  "dependencies": {
+    "berish-collection": "^1.0.1"
+  }
+}
