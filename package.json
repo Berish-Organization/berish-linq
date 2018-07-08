@@ -2,11 +2,28 @@
   "name": "berish-linq",
   "version": "1.0.2",
   "description": "LINQ - very usefull helper for working with arrays and collections",
-  "main": "index.js",
+  "dependencies": {
+    "berish-collection": "^2.0.1"
+  },
+  "main": "dist/index",
+  "typings": "dist/index",
+  "scripts": {
+    "prepublishOnly": "npm run compile",
+    "compile": "npm run clean && tsc -p .",
+    "watch": "tsc -w -p .",
+    "clean": "rm -rf dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://quadraticstudio@bitbucket.org/berishev/berish-linq.git"
+  },
+  "license": "MIT",
   "author": {
     "name": "Berishev Ravil"
   },
-  "dependencies": {
-    "berish-collection": "^1.0.1"
-  }
+  "files": [
+    "dist/index.js",
+    "dist/index.d.ts",
+    "dist/lib"
+  ]
 }
