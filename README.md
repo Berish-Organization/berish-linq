@@ -265,6 +265,7 @@ expect(first2).toBe(linq.where(m => m.age % 2 === 0).first());
 > Returns the last element in a sequence that satisfies a specified condition.
 
 Syntax: `public  last(whereFunc?:  CallbackType<T, boolean>):  T`
+
 Example: 
 ```typescript
 const linq = getLinq();
@@ -280,6 +281,7 @@ expect(last2).toBe(linq.where(m => m.age % 2 === 0).last());
 > Returns distinct elements from a sequence. Can be using with the **selectFunc** to distinct elements from a sequence by mapped values.
 
 Syntax: `public  distinct<K>(selectFunc?:  CallbackType<T, K>):  LINQ<T>`
+
 Example: 
 ```typescript
 const linq = getLinq(100);
@@ -300,9 +302,10 @@ expect(distinct2).toEqual(testDistinct2);
 ```
 ## `max`
 
-> Description
+> Returns the elements with maximum value in a sequence of values.
 
 Syntax: `public  max(numberFunc?:  CallbackType<T, number>):  LINQ<T>`
+
 Example: 
 ```typescript
 const linq = getLinq();
@@ -325,9 +328,10 @@ expect(maxValue).toBe(Math.max(...linq.select(m => m.age)));
 ```
 ## `min`
 
-> Description
+> Returns the elements with minimum value in a sequence of values.
 
 Syntax: `public  min(numberFunc?:  CallbackType<T, number>):  LINQ<T>`
+
 Example: 
 ```typescript
 const linq = getLinq();
@@ -338,9 +342,10 @@ expect(min).toEqual(linq.where(m => m.age === minValue));
 ```
 ## `minValue`
 
-> Description
+> Returns the minimum value in a sequence of values.
 
 Syntax: `public  minValue(numberFunc?:  CallbackType<T, number>):  number`
+
 Example: 
 ```typescript
 const linq = getLinq();
@@ -350,7 +355,7 @@ expect(minValue).toBe(Math.min(...linq.select(m => m.age)));
 ```
 ## `ofType`
 
-> Description
+> Filters the elements of a LINQ based on a specified type.
 
 Syntax: `public  ofType<Type  extends  new (...args) =>  any, K>(type:  Type  |  Type[], selectFunc?:  CallbackType<T, K>):  LINQ<T>`
 Example: 
@@ -611,5 +616,5 @@ const linq = LINQ.from([{ id: 1 }, { id: 2 }]);
 expect(linq.filter(m => m.id > 1)).toEqual([{ id: 2 }]);
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE1NTE5Mjk0NjUsMTkzNTg3MjUzNl19
+eyJoaXN0b3J5IjpbOTA2Nzk4ODEwLDE5MzU4NzI1MzZdfQ==
 -->
