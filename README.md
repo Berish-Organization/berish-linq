@@ -522,7 +522,7 @@ expect(linq2.containsAll([card1, card2], m => m.age)).toBeTruthy();
 ```
 ## `average`
 
-> Computes the average of a sequence of numeric values. Can be using with the **selectFunc** to check for contain elements from a sequence by mapped values.
+> Computes the average of a sequence of numeric values. Can be using with the **selectFunc** to average elements from a sequence by mapped values. Can be using with the **whereFunc** to filter elements from a sequence by specified condition.
 
 Syntax: `public  average(selectFunc?:  CallbackType<T, number>, whereFunc?:  CallbackType<T, boolean>):  number`
 
@@ -543,9 +543,10 @@ expect(linq2.average(m => m.rating, m => m.age > 18)).toBe(
 ```
 ## `intersect`
 
-> Description
+> Produces the set intersection of two sequences. Can be using with the **selectFunc** to intersect elements from a sequence by mapped values.
 
 Syntax: `public  intersect<K>(items:  T  |  T[] |  LINQ<T>, selectFunc?:  CallbackType<T, K>):  LINQ<T>`
+
 Example: 
 ```typescript
 const linq1 = LINQ.from([4, 2, 1, 5, 8, -1]);
@@ -625,5 +626,5 @@ const linq = LINQ.from([{ id: 1 }, { id: 2 }]);
 expect(linq.filter(m => m.id > 1)).toEqual([{ id: 2 }]);
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTUwODE0MjkwLDE5MzU4NzI1MzZdfQ==
+eyJoaXN0b3J5IjpbLTg3ODQ3NzY0MiwxOTM1ODcyNTM2XX0=
 -->
