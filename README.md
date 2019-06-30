@@ -567,6 +567,7 @@ expect(intersect3).toEqual(linq3.where(m => linq4.contains(m, k => k.age)));
 > Reverses the elements in an Array.
 
 Syntax: `public  reverse():  LINQ<T>`
+
 Example: 
 ```typescript
 const linq = LINQ.from([1, 4, 2, 3, 3]);
@@ -577,6 +578,7 @@ expect(linq.reverse()).toEqual([3, 3, 2, 4, 1]);
 > Combines two or more arrays. Combines two or more arrays.
 
 Syntax: `public  concat(...items: (T  |  ConcatArray<T> |  LINQ<T>)[]):  LINQ<T>`
+
 Example: 
 ```typescript
 const linq1 = LINQ.from([1, 4, 3]);
@@ -630,5 +632,5 @@ const linq = LINQ.from([{ id: 1 }, { id: 2 }]);
 expect(linq.filter(m => m.id > 1)).toEqual([{ id: 2 }]);
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEyNDAwOTYzNDAsMTkzNTg3MjUzNl19
+eyJoaXN0b3J5IjpbLTE4ODU1NjY3NjgsMTkzNTg3MjUzNl19
 -->
