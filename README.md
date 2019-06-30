@@ -81,7 +81,7 @@ expect(cloned === linq1).toBeFalsy();
 ```
 ## `where`
 
-> Narrows the LINQ of a specific condition (**whereFunc**). *It's analog for array  **filter** method*
+> Filters a sequence of values based on a predicate.
 
 Syntax: `public  where(whereFunc:  CallbackType<T, boolean>):  LINQ<T>`
 
@@ -178,6 +178,7 @@ expect(skip).toEqual(linq.slice(20));
 > Returns the number of elements in a sequence.
 
 Syntax: `public  count(whereFunc?:  CallbackType<T, boolean>):  number`
+
 Example: 
 ```typescript
 const linq = getLinq(100);
@@ -190,7 +191,7 @@ expect(count2).toBe(linq.where(m => m.age % 2 === 0).count());
 ```
 ## `indexWhere`
 
-> Description
+> Return
 
 Syntax: `public  indexWhere(whereFunc?:  CallbackType<T, boolean>):  LINQ<number>`
 Example: 
@@ -605,5 +606,5 @@ const linq = LINQ.from([{ id: 1 }, { id: 2 }]);
 expect(linq.filter(m => m.id > 1)).toEqual([{ id: 2 }]);
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjE0NDkxODI1NywxOTM1ODcyNTM2XX0=
+eyJoaXN0b3J5IjpbMTc0OTIzNzA4OSwxOTM1ODcyNTM2XX0=
 -->
