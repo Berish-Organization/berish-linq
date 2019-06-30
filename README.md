@@ -473,7 +473,7 @@ expect(dict1).toEqual(dict2);
 ```
 ## `contains`
 
-> Determines whether a sequence contains a specified element. Can be using with the **selectFunc** to except elements from a sequence by mapped values.
+> Determines whether a sequence contains a specified element. Can be using with the **selectFunc** to check for contain elements from a sequence by mapped values.
 
 Syntax: `public  contains<K>(value:  T, selectFunc?:  CallbackOnlyItemType<T, K>):  boolean`
 
@@ -495,7 +495,7 @@ expect(linq2.contains(card, m => m.age)).toBeTruthy();
 ```
 ## `containsAll`
 
-> Description
+> Determines whether a sequence contains a specified element. Can be using with the **selectFunc** to check for contain elements from a sequence by mapped values.
 
 Syntax: `public  containsAll<K>(value:  T[] |  LINQ<T>, selectFunc?:  CallbackType<T, K>):  boolean`
 Example: 
@@ -623,5 +623,5 @@ const linq = LINQ.from([{ id: 1 }, { id: 2 }]);
 expect(linq.filter(m => m.id > 1)).toEqual([{ id: 2 }]);
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2MDY4NjY2NjcsMTkzNTg3MjUzNl19
+eyJoaXN0b3J5IjpbLTExNzEyODY3MDEsMTkzNTg3MjUzNl19
 -->
