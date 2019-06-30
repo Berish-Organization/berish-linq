@@ -1,3 +1,4 @@
+import * as collection from 'berish-collection';
 import * as faker from 'faker';
 import LINQ from '../';
 
@@ -270,7 +271,17 @@ describe('check linq', () => {
     expect(expect3).toEqual(linq3.where(m => !linq4.contains(m, k => k.age)));
   });
 
-  test('groupBy', () => {});
+  test('groupBy', () => {
+    const linq = getLinq();
+    const dict1 = linq.groupBy(m => m.age);
+
+    const ages = linq.select(m => m.age).distinct();
+    const dict2 = collection.Dictionary.fromArray(
+      ages.select(m => new collection.KeyValuePair(m, linq.where(k => k.age === m))),
+    );
+
+    expect(dict1).toEqual(dict2);
+  });
 
   test('contains', () => {
     const linq1 = LINQ.from(['hey', 'bro']);
