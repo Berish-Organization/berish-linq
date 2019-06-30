@@ -277,7 +277,7 @@ expect(last2).toBe(linq.where(m => m.age % 2 === 0).last());
 ```
 ## `distinct`
 
-> Returns distinct elements from a sequence by using the selectFunc to compare values.
+> Returns distinct elements from a sequence. Can be using with the **selectFunc** to distinct elements from a sequence by mapped values.
 
 Syntax: `public  distinct<K>(selectFunc?:  CallbackType<T, K>):  LINQ<T>`
 Example: 
@@ -313,7 +313,7 @@ expect(max).toEqual(linq.where(m => m.age === maxValue));
 ```
 ## `maxValue`
 
-> Description
+> Returns the maximum value in a sequence of values.
 
 Syntax: `public  maxValue(numberFunc?:  CallbackType<T, number>):  number`
 Example: 
@@ -611,5 +611,5 @@ const linq = LINQ.from([{ id: 1 }, { id: 2 }]);
 expect(linq.filter(m => m.id > 1)).toEqual([{ id: 2 }]);
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTIwNjk1OTA1NCwxOTM1ODcyNTM2XX0=
+eyJoaXN0b3J5IjpbLTE1NTE5Mjk0NjUsMTkzNTg3MjUzNl19
 -->
