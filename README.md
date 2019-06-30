@@ -194,6 +194,7 @@ expect(count2).toBe(linq.where(m => m.age % 2 === 0).count());
 > Returns the indexes of elements in a sequence by **whereFunc**
 
 Syntax: `public  indexWhere(whereFunc?:  CallbackType<T, boolean>):  LINQ<number>`
+
 Example: 
 ```typescript
 const linq = getLinq();
@@ -206,6 +207,7 @@ expect(indexWhere).toEqual(linq.select((m, i) => (m.age % 2 === 0 ? i : null)).n
 > Returns elements in LINQ by indexes of this elements
 
 Syntax: `public  elementsAtIndex(indexes:  number[]):  LINQ<T>`
+
 Example: 
 ```typescript
 const linq = getLinq();
@@ -219,6 +221,7 @@ expect(elementsAtIndex).toEqual([linq[0], linq[5], linq[8], linq[12]]);
 > Return only not null elements
 
 Syntax: `public  notNull<K>(selectFunc?:  CallbackType<T, K>):  LINQ<T>`
+
 Example: 
 ```typescript
 const linq = getLinq(100);
@@ -229,9 +232,10 @@ expect(notNull).toEqual(linq.where((m, i) => i % 2 === 0));
 ```
 ## `notEmpty`
 
-> Return only not empty elements (!!va)
+> Return only not empty elements (!!value)
 
 Syntax: `public  notEmpty<K>(selectFunc?:  CallbackType<T, K>):  LINQ<T>`
+
 Example: 
 ```typescript
 const linq = getLinq(100);
@@ -242,9 +246,10 @@ expect(notEmpty).toEqual(linq.where((m, i) => i % 2 === 0));
 ```
 ## `first`
 
-> Description
+> Returns the first element in a sequence that satisfies a specified condition.
 
 Syntax: `public  first(whereFunc?:  CallbackType<T, boolean>):  T`
+
 Example: 
 ```typescript
 const linq = getLinq();
@@ -257,7 +262,7 @@ expect(first2).toBe(linq.where(m => m.age % 2 === 0).first());
 ```
 ## `last`
 
-> Description
+> Returns the last element in a sequence that satisfies a specified condition.
 
 Syntax: `public  last(whereFunc?:  CallbackType<T, boolean>):  T`
 Example: 
@@ -272,7 +277,7 @@ expect(last2).toBe(linq.where(m => m.age % 2 === 0).last());
 ```
 ## `distinct`
 
-> Description
+> Returns distinct elements from a sequence by using the selectFunc to compare values.
 
 Syntax: `public  distinct<K>(selectFunc?:  CallbackType<T, K>):  LINQ<T>`
 Example: 
@@ -606,5 +611,5 @@ const linq = LINQ.from([{ id: 1 }, { id: 2 }]);
 expect(linq.filter(m => m.id > 1)).toEqual([{ id: 2 }]);
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDUyNzcwMzgwLDE5MzU4NzI1MzZdfQ==
+eyJoaXN0b3J5IjpbMTIwNjk1OTA1NCwxOTM1ODcyNTM2XX0=
 -->
