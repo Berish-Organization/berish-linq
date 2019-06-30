@@ -278,7 +278,7 @@ expect(last2).toBe(linq.where(m => m.age % 2 === 0).last());
 ```
 ## `distinct`
 
-> Returns distinct elements from a sequence. Can be using with the **selectFunc** to distinct elements from a sequence by mapped values.
+> Returns distinct elements from a sequence. Can be using with the **selectFunc** to filtered elements from a sequence by mapped values.
 
 Syntax: `public  distinct<K>(selectFunc?:  CallbackType<T, K>):  LINQ<T>`
 
@@ -355,7 +355,7 @@ expect(minValue).toBe(Math.min(...linq.select(m => m.age)));
 ```
 ## `ofType`
 
-> Filters the elements of a LINQ based on a specified type.
+> Filters the elements of a LINQ based on a specified types. Can be using with the **selectFunc** to filtered elements from a sequence by mapped values.
 
 Syntax: `public  ofType<Type  extends  new (...args) =>  any, K>(type:  Type  |  Type[], selectFunc?:  CallbackType<T, K>):  LINQ<T>`
 Example: 
@@ -616,5 +616,5 @@ const linq = LINQ.from([{ id: 1 }, { id: 2 }]);
 expect(linq.filter(m => m.id > 1)).toEqual([{ id: 2 }]);
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbOTA2Nzk4ODEwLDE5MzU4NzI1MzZdfQ==
+eyJoaXN0b3J5IjpbLTEwNjExMDM4ODEsMTkzNTg3MjUzNl19
 -->
