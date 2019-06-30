@@ -374,7 +374,7 @@ expect(ofType3).toEqual(linq);
 ```
 ## `orderByAscending`
 
-> Sorts the elements of a sequence in ascending order according to a key. Can be using with the **sortSelectFunc** to order elements from a sequence by mapped values.
+> Sorts the elements of a sequence in ascending order according to a value. Can be using with the **sortSelectFunc** to order elements from a sequence by mapped values.
 
 Syntax: `public  orderByAscending<K>(sortSelectFunc?:  CallbackOnlyItemType<T, K>):  LINQ<T>`
 
@@ -396,9 +396,10 @@ expect(orderByAscending2).toEqual(bySort2);
 ```
 ## `orderByDescending`
 
-> Description
+> Sorts the elements of a sequence in descending order according to a value. Can be using with the **sortSelectFunc** to order elements from a sequence by mapped values.
 
 Syntax: `public  orderByDescending<K>(sortSelectFunc?:  CallbackOnlyItemType<T, K>):  LINQ<T>`
+
 Example: 
 ```typescript
 const linq1 = LINQ.from([4, 2, 1, 5, 8, -1]);
@@ -417,9 +418,10 @@ expect(orderByDescending2).toEqual(bySort2);
 ```
 ## `sum`
 
-> Description
+> Computes the sum of a sequence of numeric values. Can be using with the **selectFunc** to sum elements from a sequence by mapped values.
 
 Syntax: `public  sum(selectFunc?:  CallbackType<T, number>):  number`
+
 Example: 
 ```typescript
 const linq1 = LINQ.from([4, 2, 1, 5, 8, -1]);
@@ -618,5 +620,5 @@ const linq = LINQ.from([{ id: 1 }, { id: 2 }]);
 expect(linq.filter(m => m.id > 1)).toEqual([{ id: 2 }]);
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTQ5NTE5OTE4NywxOTM1ODcyNTM2XX0=
+eyJoaXN0b3J5IjpbNDI5NDE3MDA1LDE5MzU4NzI1MzZdfQ==
 -->
