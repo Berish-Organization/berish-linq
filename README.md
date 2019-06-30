@@ -127,7 +127,7 @@ expect(selected).toEqual(mapped);
 ```
 ## `selectMany`
 
-> Projects each element of a sequence to an [IEnumerable<T>and flattens the resulting sequences into one sequence.
+> Projects each element of a sequence to an LINQ<T> and flattens the resulting sequences into one sequence.
 
 Syntax: `public  selectMany<K>(selectFunc?:  CallbackType<T, K[]>):  LINQ<K>`
 
@@ -150,6 +150,7 @@ expect(selected2).toEqual([
 > Returns a specified number of contiguous elements from the start of a sequence.
 
 Syntax: `public  take(count:  number):  LINQ<T>`
+
 Example: 
 ```typescript
 const linq = getLinq(50);
@@ -163,6 +164,7 @@ expect(take).toEqual(linq.slice(0, 20));
 > Bypasses a specified number of elements in a sequence and then returns the remaining elements.
 
 Syntax: `public  skip(count:  number):  LINQ<T>`
+
 Example: 
 ```typescript
 const linq = getLinq(100);
@@ -173,9 +175,9 @@ expect(skip).toEqual(linq.slice(20));
 ```
 ## `count`
 
-> Description
+> Returns the number of elements in a sequence.
 
-Syntax: `public  count(func?:  CallbackType<T, boolean>):  number`
+Syntax: `public  count(whereFunc?:  CallbackType<T, boolean>):  number`
 Example: 
 ```typescript
 const linq = getLinq(100);
@@ -603,5 +605,5 @@ const linq = LINQ.from([{ id: 1 }, { id: 2 }]);
 expect(linq.filter(m => m.id > 1)).toEqual([{ id: 2 }]);
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDM2MTkyMTEyLDE5MzU4NzI1MzZdfQ==
+eyJoaXN0b3J5IjpbMjE0NDkxODI1NywxOTM1ODcyNTM2XX0=
 -->
