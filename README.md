@@ -564,7 +564,7 @@ expect(intersect3).toEqual(linq3.where(m => linq4.contains(m, k => k.age)));
 ```
 ## `reverse`
 
-> Description
+> Reverses the elements in an Array.
 
 Syntax: `public  reverse():  LINQ<T>`
 Example: 
@@ -574,7 +574,7 @@ expect(linq.reverse()).toEqual([3, 3, 2, 4, 1]);
 ```
 ## `concat`
 
-> Description
+> Combines two or more arrays. Combines two or more arrays.
 
 Syntax: `public  concat(...items: (T  |  ConcatArray<T> |  LINQ<T>)[]):  LINQ<T>`
 Example: 
@@ -585,9 +585,10 @@ expect(linq1.concat(linq2)).toEqual([1, 4, 3, 2, 3, 3]);
 ```
 ## `slice`
 
-> Description
+> Returns a section of an array.
 
 Syntax: `public  slice(start?:  number, end?:  number):  LINQ<T>`
+
 Example: 
 ```typescript
 const linq = LINQ.from([1, 4, 2, 3, 3]);
@@ -595,9 +596,10 @@ expect(linq.slice(2, 4)).toEqual([2, 3]);
 ```
 ## `splice`
 
-> Description
+> Removes elements from an array and, if necessary, inserts new elements in their place, returning the deleted elements. Removes elements from an array and, if necessary, inserts new elements in their place, returning the deleted elements.
 
 Syntax: `public  splice(start:  number, deleteCount:  number, ...items:  T[]):  LINQ<T>`
+
 Example: 
 ```typescript
 const linq = getLinq();
@@ -607,9 +609,10 @@ expect(cloned).toEqual(linq.skip(3));
 ```
 ## `map`
 
-> Description
+> Calls a defined callback function on each element of an array, and returns an array that contains the results.
 
 Syntax: `public  map<U>(callbackfn: (value:  T, index:  number, array:  T[]) =>  U, thisArg?:  any):  LINQ<U>`
+
 Example: 
 ```typescript
 const linq = LINQ.from([{ id: 1 }, { id: 2 }]);
@@ -617,14 +620,15 @@ expect(linq.map(m => m.id)).toEqual([1, 2]);
 ```
 ## `filter`
 
-> Description
+> Returns the elements of an array that meet the condition specified in a callback function. Returns the elements of an array that meet the condition specified in a callback function.
 
 Syntax: `public  filter(callbackfn: (value:  T, index:  number, array:  T[]) =>  unknown, thisArg?:  any):  LINQ<T>`
+
 Example: 
 ```typescript
 const linq = LINQ.from([{ id: 1 }, { id: 2 }]);
 expect(linq.filter(m => m.id > 1)).toEqual([{ id: 2 }]);
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTg3ODQ3NzY0MiwxOTM1ODcyNTM2XX0=
+eyJoaXN0b3J5IjpbLTEyNDAwOTYzNDAsMTkzNTg3MjUzNl19
 -->
