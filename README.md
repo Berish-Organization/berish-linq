@@ -70,6 +70,7 @@ function getLinq(count: number = 10) {
 > Makes no deep clone for current LINQ array.
 
 Syntax:  `public  clone():  LINQ<T>`
+
 Example: 
 ```typescript
 const linq1 = LINQ.from([1, 2, 3]);
@@ -83,6 +84,7 @@ expect(cloned === linq1).toBeFalsy();
 > Narrows the LINQ of a specific condition (**whereFunc**). *It's analog for array  **filter** method*
 
 Syntax: `public  where(whereFunc:  CallbackType<T, boolean>):  LINQ<T>`
+
 Example: 
 ```typescript
 const linq = getLinq();
@@ -97,6 +99,7 @@ selectFunc:  CallbackType<T, K>,
 accumFunc: (selected:  LINQ<K>, linq:  LINQ<T>) =>  Accum,
 whereSelectedFunc:  CallbackWithAccumType<K, Accum, boolean>,
 ):  LINQ<T>`
+
 Example: 
 ```typescript
 const linq = getLinq();
@@ -112,6 +115,7 @@ expect(where).toEqual(maxWhere);
 > Calls a defined **selectFunc** on each element of an LINQ, and returns an LINQ that contains the results. *It's analog for array  **map** method*
 
 Syntax: `public  select<K>(selectFunc:  CallbackType<T, K>):  LINQ<K>`
+
 Example: 
 ```typescript
 const linq = getLinq();
@@ -123,9 +127,10 @@ expect(selected).toEqual(mapped);
 ```
 ## `selectMany`
 
-> Projects each element of a sequence to an LINQ<T> and flattens the resulting sequences into one sequence.
+> Projects each element of a sequence to an [IEnumerable<T>and flattens the resulting sequences into one sequence.
 
 Syntax: `public  selectMany<K>(selectFunc?:  CallbackType<T, K[]>):  LINQ<K>`
+
 Example: 
 ```typescript
 const linq = LINQ.from([getLinq(), getLinq(), getLinq()]);
@@ -598,5 +603,5 @@ const linq = LINQ.from([{ id: 1 }, { id: 2 }]);
 expect(linq.filter(m => m.id > 1)).toEqual([{ id: 2 }]);
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTkzNTg3MjUzNl19
+eyJoaXN0b3J5IjpbNDM2MTkyMTEyLDE5MzU4NzI1MzZdfQ==
 -->
