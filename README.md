@@ -434,9 +434,10 @@ expect(sum2).toBe(linq2.select(m => m.age).reduce((a, b) => a + b, 0));
 ```
 ## `except`
 
-> Description
+> Produces the set difference of two sequences. Can be using with the **selectFunc** to except elements from a sequence by mapped values.
 
 Syntax: `public  except<K>(items:  T  |  T[] |  LINQ<T>, selectFunc?:  CallbackType<T, K>):  LINQ<T>`
+
 Example: 
 ```typescript
 const linq1 = LINQ.from([4, 2, 1, 5, 8, -1]);
@@ -454,9 +455,10 @@ expect(expect3).toEqual(linq3.where(m => !linq4.contains(m, k => k.age)));
 ```
 ## `groupBy`
 
-> Description
+> Groups the elements of a sequence according to a specified key selector function and creates a result value from each group and its key.  The elements of each group are projected by using a specified function **selectFunc**.
 
 Syntax: `public  groupBy<K>(selectFunc:  CallbackType<T, K>):  collection.Dictionary<K, LINQ<T>>`
+
 Example: 
 ```typescript
 const linq = getLinq();
@@ -471,9 +473,10 @@ expect(dict1).toEqual(dict2);
 ```
 ## `contains`
 
-> Description
+> Determines whether a sequence contains a specified element. Can be using with the **selectFunc** to except elements from a sequence by mapped values.
 
 Syntax: `public  contains<K>(value:  T, selectFunc?:  CallbackOnlyItemType<T, K>):  boolean`
+
 Example: 
 ```typescript
 const linq1 = LINQ.from(['hey', 'bro']);
@@ -620,5 +623,5 @@ const linq = LINQ.from([{ id: 1 }, { id: 2 }]);
 expect(linq.filter(m => m.id > 1)).toEqual([{ id: 2 }]);
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDI5NDE3MDA1LDE5MzU4NzI1MzZdfQ==
+eyJoaXN0b3J5IjpbLTE2MDY4NjY2NjcsMTkzNTg3MjUzNl19
 -->
