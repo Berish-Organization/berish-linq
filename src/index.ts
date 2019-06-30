@@ -52,9 +52,9 @@ export default class LINQ<T> extends Array<T> {
     return LINQ.from(returnValue);
   }
 
-  public count(func?: CallbackType<T, boolean>): number {
-    if (!func) return this.length || 0;
-    return this.where(func).count();
+  public count(whereFunc?: CallbackType<T, boolean>): number {
+    if (!whereFunc) return this.length || 0;
+    return this.where(whereFunc).count();
   }
 
   public indexWhere(whereFunc?: CallbackType<T, boolean>): LINQ<number> {
