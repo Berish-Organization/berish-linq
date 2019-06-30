@@ -191,7 +191,7 @@ expect(count2).toBe(linq.where(m => m.age % 2 === 0).count());
 ```
 ## `indexWhere`
 
-> Return
+> Returns the indexes of elements in a sequence by **whereFunc**
 
 Syntax: `public  indexWhere(whereFunc?:  CallbackType<T, boolean>):  LINQ<number>`
 Example: 
@@ -203,7 +203,7 @@ expect(indexWhere).toEqual(linq.select((m, i) => (m.age % 2 === 0 ? i : null)).n
 ```
 ## `elementsAtIndex`
 
-> Description
+> Returns elements in LINQ by indexes of this elements
 
 Syntax: `public  elementsAtIndex(indexes:  number[]):  LINQ<T>`
 Example: 
@@ -216,7 +216,7 @@ expect(elementsAtIndex).toEqual([linq[0], linq[5], linq[8], linq[12]]);
 ```
 ## `notNull`
 
-> Description
+> Return only not null elements
 
 Syntax: `public  notNull<K>(selectFunc?:  CallbackType<T, K>):  LINQ<T>`
 Example: 
@@ -229,7 +229,7 @@ expect(notNull).toEqual(linq.where((m, i) => i % 2 === 0));
 ```
 ## `notEmpty`
 
-> Description
+> Return only not empty elements (!!va)
 
 Syntax: `public  notEmpty<K>(selectFunc?:  CallbackType<T, K>):  LINQ<T>`
 Example: 
@@ -606,5 +606,5 @@ const linq = LINQ.from([{ id: 1 }, { id: 2 }]);
 expect(linq.filter(m => m.id > 1)).toEqual([{ id: 2 }]);
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTc0OTIzNzA4OSwxOTM1ODcyNTM2XX0=
+eyJoaXN0b3J5IjpbNDUyNzcwMzgwLDE5MzU4NzI1MzZdfQ==
 -->
