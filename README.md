@@ -1,3 +1,3 @@
-# fartix-dd
+# @berish/linq
 
 Драйвер базы данных

@@ -6,10 +6,9 @@ class TestAType {}
 class TestBType {}
 
 function generateCard(index: number = 0) {
-  const userCard = faker.helpers.userCard();
   return {
-    ...userCard,
     age: faker.random.number({ min: 0, max: 30 }),
+    email: faker.internet.email(),
     id: faker.random.uuid(),
     rating: faker.random.number({ min: 0, max: 100 }),
     types: index % 2 === 0 ? new TestAType() : new TestBType(),
@@ -265,7 +264,8 @@ describe('check linq', () => {
 
     const linq3 = getLinq(100);
     const linq4 = getLinq(100);
-    expect(linq3.except(linq4)).toEqual(linq3);
+    const expect2 = linq3.except(linq4);
+    expect(expect2).toEqual(linq3);
 
     const expect3 = linq3.except(linq4, m => m.age);
     expect(expect3).toEqual(linq3.where(m => !linq4.contains(m, k => k.age)));
@@ -333,6 +333,21 @@ describe('check linq', () => {
         .select(m => m.rating)
         .average(),
     );
+  });
+
+  test('intersect', () => {
+    const linq1 = LINQ.from([4, 2, 1, 5, 8, -1]);
+    const linq2 = LINQ.from([4, -100, 7, 5, 8, -1]);
+    const intersect1 = linq1.intersect(linq2);
+    expect(intersect1).toEqual([4, 5, 8, -1]);
+
+    const linq3 = getLinq(100);
+    const linq4 = getLinq(100);
+    const intersect2 = linq3.intersect(linq4);
+    expect(intersect2).toEqual([]);
+
+    const intersect3 = linq3.intersect(linq4, m => m.age);
+    expect(intersect3).toEqual(linq3.where(m => linq4.contains(m, k => k.age)));
   });
 
   test('reverse', () => {

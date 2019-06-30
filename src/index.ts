@@ -87,7 +87,7 @@ export default class LINQ<T> extends Array<T> {
     return this[lastIndex];
   }
 
-  public distinct<K = T>(selectFunc?: CallbackType<T, K>): LINQ<T> {
+  public distinct<K>(selectFunc?: CallbackType<T, K>): LINQ<T> {
     if (selectFunc)
       return this.whereWithAccum(selectFunc, null, (m, i, linq, selected) => selected.indexOf(selected[i]) === i);
     return this.where((m, i, linq) => linq.indexOf(m) === i);
