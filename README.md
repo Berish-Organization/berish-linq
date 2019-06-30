@@ -218,7 +218,7 @@ expect(elementsAtIndex).toEqual([linq[0], linq[5], linq[8], linq[12]]);
 ```
 ## `notNull`
 
-> Return only not null elements
+> Return only not null elements. Can be using with the **selectFunc** to filtered elements from a sequence by mapped values.
 
 Syntax: `public  notNull<K>(selectFunc?:  CallbackType<T, K>):  LINQ<T>`
 
@@ -232,7 +232,7 @@ expect(notNull).toEqual(linq.where((m, i) => i % 2 === 0));
 ```
 ## `notEmpty`
 
-> Return only not empty elements (!!value)
+> Return only not empty elements (!!value). Can be using with the **selectFunc** to filtered elements from a sequence by mapped values.
 
 Syntax: `public  notEmpty<K>(selectFunc?:  CallbackType<T, K>):  LINQ<T>`
 
@@ -358,6 +358,7 @@ expect(minValue).toBe(Math.min(...linq.select(m => m.age)));
 > Filters the elements of a LINQ based on a specified types. Can be using with the **selectFunc** to filtered elements from a sequence by mapped values.
 
 Syntax: `public  ofType<Type  extends  new (...args) =>  any, K>(type:  Type  |  Type[], selectFunc?:  CallbackType<T, K>):  LINQ<T>`
+
 Example: 
 ```typescript
 const linq = getLinq();
@@ -373,9 +374,10 @@ expect(ofType3).toEqual(linq);
 ```
 ## `orderByAscending`
 
-> Description
+> Sorts the elements of a sequence in ascending order according to a key. Can be using with the **sortSelectFunc** to order elements from a sequence by mapped values.
 
 Syntax: `public  orderByAscending<K>(sortSelectFunc?:  CallbackOnlyItemType<T, K>):  LINQ<T>`
+
 Example: 
 ```typescript
 const linq1 = LINQ.from([4, 2, 1, 5, 8, -1]);
@@ -616,5 +618,5 @@ const linq = LINQ.from([{ id: 1 }, { id: 2 }]);
 expect(linq.filter(m => m.id > 1)).toEqual([{ id: 2 }]);
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwNjExMDM4ODEsMTkzNTg3MjUzNl19
+eyJoaXN0b3J5IjpbLTQ5NTE5OTE4NywxOTM1ODcyNTM2XX0=
 -->
