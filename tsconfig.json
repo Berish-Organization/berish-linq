@@ -3,7 +3,7 @@
     "outDir": "./build",
     "target": "es6",
     "module": "commonjs",
-    "lib": ["es6"],
+    "lib": ["es6", "dom"],
     "declaration": true,
     "sourceMap": true,
     "strict": false,
