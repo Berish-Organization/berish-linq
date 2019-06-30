@@ -495,9 +495,10 @@ expect(linq2.contains(card, m => m.age)).toBeTruthy();
 ```
 ## `containsAll`
 
-> Determines whether a sequence contains a specified element. Can be using with the **selectFunc** to check for contain elements from a sequence by mapped values.
+> Determines whether a sequence contains all of the specified elements at once. Can be using with the **selectFunc** to check for contain elements from a sequence by mapped values.
 
 Syntax: `public  containsAll<K>(value:  T[] |  LINQ<T>, selectFunc?:  CallbackType<T, K>):  boolean`
+
 Example: 
 ```typescript
 const linq1 = LINQ.from(['hey', 'bro']);
@@ -521,9 +522,10 @@ expect(linq2.containsAll([card1, card2], m => m.age)).toBeTruthy();
 ```
 ## `average`
 
-> Description
+> Computes the average of a sequence of numeric values. Can be using with the **selectFunc** to check for contain elements from a sequence by mapped values.
 
 Syntax: `public  average(selectFunc?:  CallbackType<T, number>, whereFunc?:  CallbackType<T, boolean>):  number`
+
 Example: 
 ```typescript
 const linq1 = LINQ.from([1, 2, 5, 10]);
@@ -623,5 +625,5 @@ const linq = LINQ.from([{ id: 1 }, { id: 2 }]);
 expect(linq.filter(m => m.id > 1)).toEqual([{ id: 2 }]);
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExNzEyODY3MDEsMTkzNTg3MjUzNl19
+eyJoaXN0b3J5IjpbMTUwODE0MjkwLDE5MzU4NzI1MzZdfQ==
 -->
