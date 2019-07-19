@@ -5,10 +5,16 @@ type CallbackWithAccumType<T, Accum, Response> = (item: T, index: number, linq: 
 type CallbackOnlyItemType<T, Response> = (item: T) => Response;
 
 export default class LINQ<T> extends Array<T> {
-  public static from<T>(items?: T[]): LINQ<T> {
+  public static from<T>(items?: T[] | LINQ<T>): LINQ<T> {
+    if (this.isLINQ(items)) return items;
     const linq = new LINQ<T>();
     if (items && items.length > 0) linq.push(...items);
     return linq;
+  }
+
+  public static isLINQ(data: any): data is LINQ<any> {
+    if (data instanceof LINQ) return true;
+    return false;
   }
 
   public clone(): LINQ<T> {
