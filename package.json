@@ -1,6 +1,6 @@
 {
   "name": "@berish/linq",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "LINQ - very usefull helper for working with arrays and collections",
   "main": "build/index.js",
   "typings": "build/index.d.ts",
