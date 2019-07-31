@@ -3,6 +3,7 @@ import * as collection from 'berish-collection';
 type CallbackType<T, Response> = (item: T, index: number, linq: LINQ<T>) => Response;
 type CallbackWithAccumType<T, Accum, Response> = (item: T, index: number, linq: LINQ<T>, accum: Accum) => Response;
 type CallbackOnlyItemType<T, Response> = (item: T) => Response;
+type OfTypeStringValues = 'string' | 'number' | 'bigint' | 'boolean' | 'symbol' | 'undefined' | 'object' | 'function';
 
 export default class LINQ<T> extends Array<T> {
   public static from<T>(items?: T[] | LINQ<T>): LINQ<T> {
@@ -115,9 +116,14 @@ export default class LINQ<T> extends Array<T> {
     return Math.min(...this.select(numberFunc));
   }
 
-  public ofType<Type extends new (...args) => any, K>(type: Type | Type[], selectFunc?: CallbackType<T, K>): LINQ<T> {
+  public ofType<Type extends new (...args) => any, K>(
+    type: OfTypeStringValues | OfTypeStringValues[] | Type | Type[] | (OfTypeStringValues | Type)[],
+    selectFunc?: CallbackType<T, K>,
+  ): LINQ<T> {
     const types = Array.isArray(type) ? LINQ.from(type) : LINQ.from([type]);
-    return this.whereWithAccum(selectFunc, null, m => types.some(k => m instanceof k));
+    return this.whereWithAccum(selectFunc, null, m =>
+      types.some(k => (typeof k === 'string' ? typeof m === k : m instanceof k)),
+    );
   }
 
   public orderByAscending<K>(sortSelectFunc?: CallbackOnlyItemType<T, K>): LINQ<T> {

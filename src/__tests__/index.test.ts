@@ -212,6 +212,12 @@ describe('check linq', () => {
 
     const ofType3 = linq.ofType([TestAType, TestBType], m => m.types);
     expect(ofType3).toEqual(linq);
+
+    const ofType4 = linq.ofType('number', m => m.age);
+    expect(ofType4.count()).toBe(linq.count());
+
+    const ofType5 = linq.ofType('string', m => m.age);
+    expect(ofType5.count()).toBe(0);
   });
 
   test('orderByAscending', () => {
