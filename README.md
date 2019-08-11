@@ -83,11 +83,49 @@ expect(cloned).toEqual(linq1);
 expect(cloned === linq1).toBeFalsy();
 ```
 
+## `equals`
+
+> Check equals this LINQ and another array by link-pointer
+
+Syntax: `public equals(linq: any[]): boolean`
+
+Example:
+
+```typescript
+const linq1 = LINQ.from([1, 2, 3]);
+const cloned = linq1.clone();
+
+expect(linq1.equals(cloned)).toBeFalsy();
+expect(linq1.equals(linq1)).toBeTruthy();
+```
+
+## `equalsValues`
+
+> Check equals this LINQ and another array by values. You can map a sequence of values based on a predicate.
+
+Syntax: `public equalsValues<K>(linq: any[], selectFunc?: CallbackType<T, K>): boolean`
+
+Example:
+
+```typescript
+const linq1 = LINQ.from([1, 2, 3]);
+const cloned = linq1.clone();
+
+expect(linq1.equalsValues(cloned)).toBeTruthy();
+expect(linq1.equalsValues(linq1)).toBeTruthy();
+
+const linq2 = LINQ.from([{ id: 1 }, { id: 2 }, { id: 3 }]);
+const linq3 = [{ id: 1 }, { id: 2 }, { id: 3 }];
+
+expect(linq2.equalsValues(linq3)).toBeFalsy();
+expect(linq2.equalsValues(linq3, m => m.id)).toBeTruthy();
+```
+
 ## `where`
 
 > Filters a sequence of values based on a predicate.
 
-Syntax: `public where(whereFunc: CallbackType<T, boolean>): LINQ<T>`
+Syntax: `public where(whereFunc?: CallbackType<T, boolean>): LINQ<T>`
 
 Example:
 

@@ -22,7 +22,27 @@ export default class LINQ<T> extends Array<T> {
     return this.slice(0);
   }
 
-  public where(whereFunc: CallbackType<T, boolean>): LINQ<T> {
+  public equals(linq: any[]) {
+    return this === linq;
+  }
+
+  public equalsValues<K>(linq: any[], selectFunc?: CallbackType<T, K>) {
+    if (this.equals(linq)) return true;
+    if (linq == null) return false;
+    if (this.length !== linq.length) return false;
+
+    // If you don't care about the order of the elements inside
+    // the array, you should sort both arrays here.
+    // Please note that calling sort on an array will modify that array.
+    // you might want to clone your array first.
+    const linq1 = this.select(selectFunc);
+    const linq2 = LINQ.from(linq).select(selectFunc);
+
+    return linq1.every((m, i) => linq2[i] === m);
+  }
+
+  public where(whereFunc?: CallbackType<T, boolean>): LINQ<T> {
+    if (!whereFunc) return this;
     const returnValue = this.filter((m, i) => whereFunc(m, i, this));
     return LINQ.from(returnValue);
   }

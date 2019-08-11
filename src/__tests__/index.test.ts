@@ -39,6 +39,28 @@ describe('check linq', () => {
     expect(cloned === linq1).toBeFalsy();
   });
 
+  test('equals', () => {
+    const linq1 = LINQ.from([1, 2, 3]);
+    const cloned = linq1.clone();
+
+    expect(linq1.equals(cloned)).toBeFalsy();
+    expect(linq1.equals(linq1)).toBeTruthy();
+  });
+
+  test('equalsValues', () => {
+    const linq1 = LINQ.from([1, 2, 3]);
+    const cloned = linq1.clone();
+
+    expect(linq1.equalsValues(cloned)).toBeTruthy();
+    expect(linq1.equalsValues(linq1)).toBeTruthy();
+
+    const linq2 = LINQ.from([{ id: 1 }, { id: 2 }, { id: 3 }]);
+    const linq3 = [{ id: 1 }, { id: 2 }, { id: 3 }];
+
+    expect(linq2.equalsValues(linq3)).toBeFalsy();
+    expect(linq2.equalsValues(linq3, m => m.id)).toBeTruthy();
+  });
+
   test('where', () => {
     const linq = getLinq();
     expect(linq.where(m => m.age % 2 === 0)).toEqual(linq.filter(m => m.age % 2 === 0));
