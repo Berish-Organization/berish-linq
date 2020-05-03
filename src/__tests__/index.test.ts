@@ -31,6 +31,15 @@ describe('check linq', () => {
     expect(LINQ.from([]) === LINQ.from([])).toBeFalsy();
   });
 
+  test('toArray', () => {
+    const linq1 = LINQ.from([1, 2, 3]);
+    const arr = linq1.toArray();
+
+    expect(linq1).toHaveProperty('toArray');
+    expect(arr).not.toHaveProperty('toArray');
+    expect(arr).toEqual(linq1);
+  });
+
   test('clone', () => {
     const linq1 = LINQ.from([1, 2, 3]);
     const cloned = linq1.clone();

@@ -75,4 +75,7 @@ typings/
 # FuseBox cache
 .fusebox/
 
+# Mac OS DS_Store
+.DS_Store
+
 /build

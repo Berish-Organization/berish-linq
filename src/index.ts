@@ -18,6 +18,10 @@ export default class LINQ<T> extends Array<T> {
     return false;
   }
 
+  public toArray(): T[] {
+    return new Array(...this);
+  }
+
   public clone(): LINQ<T> {
     return this.slice(0);
   }
@@ -148,7 +152,7 @@ export default class LINQ<T> extends Array<T> {
 
   public orderByAscending<K>(sortSelectFunc?: CallbackOnlyItemType<T, K>): LINQ<T> {
     if (sortSelectFunc)
-      return LINQ.from(
+      return LINQ.from<T>(
         this.sort((a, b) => {
           const ak = sortSelectFunc(a);
           const bk = sortSelectFunc(b);
@@ -157,7 +161,7 @@ export default class LINQ<T> extends Array<T> {
           return 0;
         }),
       );
-    return LINQ.from(
+    return LINQ.from<T>(
       this.sort((a, b) => {
         if (a < b) return -1;
         if (a > b) return 1;
@@ -168,7 +172,7 @@ export default class LINQ<T> extends Array<T> {
 
   public orderByDescending<K>(sortSelectFunc?: CallbackOnlyItemType<T, K>): LINQ<T> {
     if (sortSelectFunc)
-      return LINQ.from(
+      return LINQ.from<T>(
         this.sort((a, b) => {
           const ak = sortSelectFunc(a);
           const bk = sortSelectFunc(b);
@@ -177,7 +181,7 @@ export default class LINQ<T> extends Array<T> {
           return 0;
         }),
       );
-    return LINQ.from(
+    return LINQ.from<T>(
       this.sort((a, b) => {
         if (a > b) return -1;
         if (a < b) return 1;
