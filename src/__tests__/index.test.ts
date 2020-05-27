@@ -334,7 +334,9 @@ describe('check linq', () => {
       m => m[0],
       (a, b) => Array.isArray(a) && Array.isArray(b) && a.length === b.length && a.every((m, i) => m === b[i]),
     );
-    console.log(groupByHard.toArray().map(m => [m[0], m[1].map(k => k[1]).toArray()]));
+    expect(groupByHard.toArray().map(m => [m[0], m[1].map(k => k[1]).toArray()])).toEqual([
+      [['book', 'author', 'book'], [{ name: 'B' }, { name: 'A' }]],
+    ]);
   });
 
   test('contains', () => {
