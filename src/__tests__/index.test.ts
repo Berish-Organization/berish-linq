@@ -1,4 +1,3 @@
-import * as collection from 'berish-collection';
 import * as faker from 'faker';
 import LINQ from '../';
 
@@ -75,10 +74,20 @@ describe('check linq', () => {
     expect(linq.where(m => m.age % 2 === 0)).toEqual(linq.filter(m => m.age % 2 === 0));
   });
 
-  test('whereWithAccum', () => {
+  test('whereInSelect', () => {
+    const linq = getLinq();
+    const check = linq.whereInSelect(m => m.age, m => m % 2 === 0);
+    expect(check).toEqual(linq.where(m => m.age % 2 === 0));
+  });
+
+  test('whereInSelectWithAccum', () => {
     const linq = getLinq();
 
-    const where = linq.whereWithAccum(m => m.age, selected => Math.max(...selected), (m, i, l, max) => m >= max);
+    const where = linq.whereInSelectWithAccum(
+      m => m.age,
+      selected => Math.max(...selected),
+      (m, i, l, max) => m >= max,
+    );
     const max = Math.max(...linq.map(m => m.age));
     const maxWhere = linq.where(m => m.age === max);
 
@@ -313,11 +322,19 @@ describe('check linq', () => {
     const dict1 = linq.groupBy(m => m.age);
 
     const ages = linq.select(m => m.age).distinct();
-    const dict2 = collection.Dictionary.fromArray(
-      ages.select(m => new collection.KeyValuePair(m, linq.where(k => k.age === m))),
-    );
+    const dict2 = ages.select(m => [m, linq.where(k => k.age === m)]);
 
     expect(dict1).toEqual(dict2);
+
+    const linqHard = LINQ.from<[string[], object]>([
+      [['book', 'author', 'book'], { name: 'B' }],
+      [['book', 'author', 'book'], { name: 'A' }],
+    ]);
+    const groupByHard = linqHard.groupBy(
+      m => m[0],
+      (a, b) => Array.isArray(a) && Array.isArray(b) && a.length === b.length && a.every((m, i) => m === b[i]),
+    );
+    console.log(groupByHard.toArray().map(m => [m[0], m[1].map(k => k[1]).toArray()]));
   });
 
   test('contains', () => {

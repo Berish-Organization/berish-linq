@@ -54,11 +54,5 @@
     "tslint": "^5.18.0",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.5.2"
-  },
-  "dependencies": {
-    "berish-collection": "^2.0.1"
-  },
-  "peerDependencies": {
-    "berish-collection": "^2.0.1"
   }
 }

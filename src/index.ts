@@ -1,7 +1,6 @@
-import * as collection from 'berish-collection';
-
 type CallbackType<T, Response> = (item: T, index: number, linq: LINQ<T>) => Response;
-type CallbackWithAccumType<T, Accum, Response> = (item: T, index: number, linq: LINQ<T>, accum: Accum) => Response;
+type CallbackWithAccumType<T, Response, Accum> = (item: T, index: number, linq: LINQ<T>, accum: Accum) => Response;
+type CallbackCompareType<T, Response> = (a: T, b: T) => Response;
 type CallbackOnlyItemType<T, Response> = (item: T) => Response;
 type OfTypeStringValues = 'string' | 'number' | 'bigint' | 'boolean' | 'symbol' | 'undefined' | 'object' | 'function';
 
@@ -51,18 +50,27 @@ export default class LINQ<T> extends Array<T> {
     return LINQ.from(returnValue);
   }
 
-  public whereWithAccum<K, Accum = LINQ<K>>(
-    selectFunc: CallbackType<T, K>,
-    accumFunc: (selected: LINQ<K>, linq: LINQ<T>) => Accum,
-    whereSelectedFunc: CallbackWithAccumType<K, Accum, boolean>,
-  ): LINQ<T> {
+  public whereInSelect<K>(selectFunc: CallbackType<T, K>, whereFunc: CallbackType<K, boolean>): LINQ<T> {
+    if (!selectFunc || !whereFunc) return this;
     const selected = this.select(selectFunc);
-    const accum = accumFunc ? accumFunc(selected, this) : ((selected as any) as Accum);
-    return this.where((m, i, linq) => whereSelectedFunc(selected[i], i, selected, accum));
+    return this.where((m, i) => whereFunc(selected[i], i, selected));
   }
 
-  public select<K>(selectFunc: CallbackType<T, K>): LINQ<K> {
-    if (!selectFunc) return (this as any) as LINQ<K>;
+  public whereInSelectWithAccum<K, Accum = LINQ<K>>(
+    selectFunc: CallbackType<T, K>,
+    getAccumFunc: (selected: LINQ<K>, linq: LINQ<T>) => Accum,
+    whereFunc: CallbackWithAccumType<K, boolean, Accum>,
+  ): LINQ<T> {
+    if (!selectFunc || !getAccumFunc || !whereFunc) return this;
+    const selected = this.select(selectFunc);
+    const accum = getAccumFunc(selected, this);
+    return this.where((m, i, linq) => whereFunc(selected[i], i, selected, accum));
+  }
+
+  public select(): LINQ<T>;
+  public select<K>(selectFunc: CallbackType<T, K>): LINQ<K>;
+  public select<K>(selectFunc?: CallbackType<T, K>): LINQ<K> | LINQ<T> {
+    if (!selectFunc) return this;
     const returnValue = this.map((m, i) => selectFunc(m, i, this));
     return LINQ.from(returnValue);
   }
@@ -119,13 +127,12 @@ export default class LINQ<T> extends Array<T> {
   }
 
   public distinct<K>(selectFunc?: CallbackType<T, K>): LINQ<T> {
-    if (selectFunc)
-      return this.whereWithAccum(selectFunc, null, (m, i, linq, selected) => selected.indexOf(selected[i]) === i);
+    if (selectFunc) return this.whereInSelect(selectFunc, (m, i, selected) => selected.indexOf(m) === i);
     return this.where((m, i, linq) => linq.indexOf(m) === i);
   }
 
   public max(numberFunc?: CallbackType<T, number>): LINQ<T> {
-    return this.whereWithAccum(numberFunc, selected => Math.max(...selected), (m, i, linq, max) => m === max);
+    return this.whereInSelectWithAccum(numberFunc, selected => Math.max(...selected), (m, i, linq, max) => m === max);
   }
 
   public maxValue(numberFunc?: CallbackType<T, number>): number {
@@ -133,7 +140,7 @@ export default class LINQ<T> extends Array<T> {
   }
 
   public min(numberFunc?: CallbackType<T, number>): LINQ<T> {
-    return this.whereWithAccum(numberFunc, selected => Math.min(...selected), (m, i, linq, min) => m === min);
+    return this.whereInSelectWithAccum(numberFunc, selected => Math.min(...selected), (m, i, linq, min) => m === min);
   }
 
   public minValue(numberFunc?: CallbackType<T, number>): number {
@@ -145,7 +152,7 @@ export default class LINQ<T> extends Array<T> {
     selectFunc?: CallbackType<T, K>,
   ): LINQ<T> {
     const types = Array.isArray(type) ? LINQ.from(type) : LINQ.from([type]);
-    return this.whereWithAccum(selectFunc, null, m =>
+    return this.whereInSelect(selectFunc, m =>
       types.some(k => (typeof k === 'string' ? typeof m === k : m instanceof k)),
     );
   }
@@ -204,14 +211,18 @@ export default class LINQ<T> extends Array<T> {
     return this.where(m => array.indexOf(m) === -1);
   }
 
-  public groupBy<K>(selectFunc: CallbackType<T, K>): collection.Dictionary<K, LINQ<T>> {
-    const dict = new collection.Dictionary<K, LINQ<T>>();
-    this.forEach((m, i) => {
-      const key = selectFunc(m, i, this);
-      if (!dict.containsKey(key)) dict.add(key, LINQ.from());
-      dict.get(key).push(m);
-    });
-    return dict;
+  public groupBy<K>(
+    selectFunc: CallbackType<T, K>,
+    compareKeyFunc?: CallbackCompareType<K, boolean>,
+  ): LINQ<[K, LINQ<T>]> {
+    compareKeyFunc = compareKeyFunc || ((a, b) => a === b);
+    const tuples: LINQ<[K, LINQ<T>]> = LINQ.from();
+    const keys = this.select(selectFunc);
+    for (const key of keys) {
+      const cacheTuple = tuples.filter(m => compareKeyFunc(m[0], key))[0];
+      if (!cacheTuple) tuples.push([key, this.whereInSelect(selectFunc, k => compareKeyFunc(key, k))]);
+    }
+    return tuples;
   }
 
   public contains<K>(value: T, selectFunc?: CallbackOnlyItemType<T, K>): boolean {
