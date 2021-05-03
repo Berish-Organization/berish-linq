@@ -54,5 +54,8 @@
     "tslint": "^5.18.0",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.5.2"
+  },
+  "dependencies": {
+    "bignumber.js": "^9.0.1"
   }
 }

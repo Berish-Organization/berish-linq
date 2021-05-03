@@ -1,3 +1,5 @@
+import BigNumber from 'bignumber.js';
+
 type CallbackType<T, Response> = (item: T, index: number, linq: LINQ<T>) => Response;
 type CallbackWithAccumType<T, Response, Accum> = (item: T, index: number, linq: LINQ<T>, accum: Accum) => Response;
 type CallbackCompareType<T, Response> = (a: T, b: T) => Response;
@@ -132,19 +134,27 @@ export default class LINQ<T> extends Array<T> {
   }
 
   public max(numberFunc?: CallbackType<T, number>): LINQ<T> {
-    return this.whereInSelectWithAccum(numberFunc, selected => Math.max(...selected), (m, i, linq, max) => m === max);
+    return this.whereInSelectWithAccum(
+      numberFunc,
+      selected => BigNumber.max(...selected).toNumber(),
+      (m, i, linq, max) => m === max,
+    );
   }
 
   public maxValue(numberFunc?: CallbackType<T, number>): number {
-    return Math.max(...this.select(numberFunc));
+    return BigNumber.max(...this.select(numberFunc)).toNumber();
   }
 
   public min(numberFunc?: CallbackType<T, number>): LINQ<T> {
-    return this.whereInSelectWithAccum(numberFunc, selected => Math.min(...selected), (m, i, linq, min) => m === min);
+    return this.whereInSelectWithAccum(
+      numberFunc,
+      selected => BigNumber.min(...selected).toNumber(),
+      (m, i, linq, min) => m === min,
+    );
   }
 
   public minValue(numberFunc?: CallbackType<T, number>): number {
-    return Math.min(...this.select(numberFunc));
+    return BigNumber.min(...this.select(numberFunc)).toNumber();
   }
 
   public ofType<Type extends new (...args) => any, K>(
@@ -199,7 +209,8 @@ export default class LINQ<T> extends Array<T> {
 
   public sum(selectFunc?: CallbackType<T, number>): number {
     if (selectFunc) return this.select(selectFunc).sum();
-    return this.reduce((a, b) => Number(a) + Number(b), 0);
+
+    return this.reduce((a, b) => a.plus(Number(b)), new BigNumber(0)).toNumber();
   }
 
   public except<K>(items: T | T[] | LINQ<T>, selectFunc?: CallbackType<T, K>): LINQ<T> {
@@ -227,6 +238,7 @@ export default class LINQ<T> extends Array<T> {
 
   public contains<K>(value: T, selectFunc?: CallbackOnlyItemType<T, K>): boolean {
     if (selectFunc) return this.select(selectFunc).contains(selectFunc(value));
+
     return this.indexOf(value) !== -1;
   }
 
@@ -235,13 +247,15 @@ export default class LINQ<T> extends Array<T> {
       const selected = this.select(selectFunc);
       return value.every((m, i) => selected.indexOf(selectFunc(m, i, this)) !== -1);
     }
+
     return value.every(m => this.indexOf(m) !== -1);
   }
 
   public average(selectFunc?: CallbackType<T, number>, whereFunc?: CallbackType<T, boolean>): number {
     if (whereFunc) return this.where(whereFunc).average(selectFunc);
     if (selectFunc) return this.select(selectFunc).average();
-    return this.sum() / this.count();
+
+    return new BigNumber(this.sum()).dividedBy(this.count()).toNumber();
   }
 
   public intersect<K>(items: T | T[] | LINQ<T>, selectFunc?: CallbackType<T, K>): LINQ<T> {
